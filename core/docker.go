@@ -148,6 +148,7 @@ func (d *DockerManager) getService(id string) (*servers.Service, error) {
 	switch len(desc.NetworkSettings.Networks) {
 	case 0:
 		logger.Warningf("Warning, no IP address found for container '%s' ", desc.Name)
+		return nil, errors.New("no IP address found for container")
 	default:
 		for _, value := range desc.NetworkSettings.Networks {
 			ip := net.ParseIP(value.IPAddress)
